@@ -1,63 +1,63 @@
-const {response} = require('express');
+const { response, request } = require('express');
 
-//packete controllers para los callbacks 
-//funcion usuariosGet
 
-const usuariosGet = (req, res = response) => {
-    //Regresamos un objeto         
+const usuariosGet = (req = request, res = response) => {
+
+    const { q, nombre = 'No name', apikey, page = 1, limit } = req.query;
+
     res.json({
-        msg: 'get API - controlador'
+        msg: 'get API - controlador',
+        q,
+        nombre,
+        apikey,
+        page, 
+        limit
     });
-};
-
+}
 
 const usuariosPost = (req, res = response) => {
-    //con ese request leemos lo que la persona mando 
-    
-    //{variables dentro} con esta forma me aseguro de solo tomar esas variables como filtro
-    const {nombre, edad} = req.body;
-    
+
+    const { nombre, edad } = req.body;
+
     res.json({
-        msg: 'post API - controlador',
-        body
+        msg: 'post API - usuariosPost',
+        nombre, 
+        edad
     });
-};
+}
+
 const usuariosPut = (req, res = response) => {
-    //recibe del request un parametro que se indico en la ruta que es el id       
-    const {id} = req.params.id;
+
+    const { id } = req.params;
+
     res.json({
-        msg: 'put API - controlador'
+        msg: 'put API - usuariosPut',
+        id
     });
-};
+}
 
 const usuariosPatch = (req, res = response) => {
-            
     res.json({
-        msg: 'patch API - controlador'
+        msg: 'patch API - usuariosPatch'
     });
-};
+}
 
 const usuariosDelete = (req, res = response) => {
-           
     res.json({
-        msg: 'delete API - controlador'
+        msg: 'delete API - usuariosDelete'
     });
-};
+}
 
 
 
 
-
-//aqui exporto los modulos de las funciones para hacer uso de ellas
 module.exports = {
-
     usuariosGet,
     usuariosPost,
     usuariosPut,
     usuariosPatch,
     usuariosDelete,
 }
-
 
 
 
